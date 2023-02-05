@@ -72,7 +72,7 @@ app.post('/videos', (req: Request, res: Response) => {
         canBeDownloaded: req.body.canBeDownloaded,
         minAgeRestriction: req.body.minAgeRestriction,
         createdAt: (new Date().toISOString()),
-        publicationDate: (new Date().toISOString()),
+        publicationDate: (new Date(new Date().setDate(new Date().getDate() + 1)).toISOString()),
         availableResolutions: req.body.availableResolutions
     }
     //start checking
@@ -113,7 +113,7 @@ app.post('/videos', (req: Request, res: Response) => {
         videosDataBase.push(newVideo)
         res.status(201).send(newVideo)
     } else {
-        res.send(404)
+        res.send(400)
     }
 })
 //update video
