@@ -123,7 +123,8 @@ app.post('/videos', (req, res) => {
     }
     //endpoint
     if (errors_array.length > 0) {
-        res.status(400).send(errors_array);
+        let errorsList = { errorsMessages: errors_array };
+        res.status(400).send(errorsList);
     }
     else {
         videosDataBase.push(newVideo);
@@ -185,7 +186,8 @@ app.put('/videos/:id', (req, res) => {
         }
         //assigment to variable
         if (errors_array.length > 0) {
-            res.status(400).send(errors_array);
+            let errorsList = { errorsMessages: errors_array };
+            res.status(400).send(errorsList);
         }
         else {
             videosDataBase[index] = newVideo;
