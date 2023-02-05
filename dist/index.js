@@ -21,19 +21,29 @@ const videosDataBase = [
         publicationDate: "2015-05-15T08:00:00.000Z",
         availableResolutions: ["P144"],
     },
+    {
+        id: 2,
+        title: "Star Wars: Episode III",
+        author: "George Lucas",
+        canBeDownloaded: true,
+        minAgeRestriction: null,
+        createdAt: "2015-05-15T00:00:00.000Z",
+        publicationDate: "2015-05-15T08:00:00.000Z",
+        availableResolutions: ["P144"],
+    }
 ];
 const availableResolutions = ["P144", "P240", "P360", "P480", "P720", "P1080", "P1440", "P2160"];
 //delete all videos
-app.delete('/hometask_01/api/testing/all-data', (req, res) => {
+app.delete('/testing/all-data', (req, res) => {
     videosDataBase.splice(0, videosDataBase.length);
     res.send(204);
 });
 //return all videos
-app.get('/hometask_01/api/videos', (req, res) => {
+app.get('/videos', (req, res) => {
     res.send(videosDataBase);
 });
 //return video by id
-app.get('/hometask_01/api/videos/:id', (req, res) => {
+app.get('/videos/:id', (req, res) => {
     let video = videosDataBase.find(p => p.id === +req.params.id);
     if (video) {
         res.send(video);
@@ -43,7 +53,7 @@ app.get('/hometask_01/api/videos/:id', (req, res) => {
     }
 });
 //delete video by id
-app.delete('/hometask_01/api/videos/:id', (req, res) => {
+app.delete('/videos/:id', (req, res) => {
     for (let i = 0; i < videosDataBase.length; i++) {
         if (videosDataBase[i].id === +req.params.id) {
             videosDataBase.splice(i, 1);
@@ -54,7 +64,7 @@ app.delete('/hometask_01/api/videos/:id', (req, res) => {
     res.send(404);
 });
 //create new video
-app.post('/hometask_01/api/videos', (req, res) => {
+app.post('/videos', (req, res) => {
     let newVideo = {
         id: +(new Date()),
         title: req.body.title,
@@ -107,11 +117,11 @@ app.post('/hometask_01/api/videos', (req, res) => {
         res.status(201).send(newVideo);
     }
     else {
-        res.send(400);
+        res.send(404);
     }
 });
 //update video
-app.put('/hometask_01/api/videos/:id', (req, res) => {
+app.put('/videos/:id', (req, res) => {
     let newVideo = videosDataBase.find(p => p.id === +req.params.id);
     let index = videosDataBase.findIndex(p => p.id === +req.params.id);
     //add by value
